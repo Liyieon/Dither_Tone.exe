@@ -1,0 +1,180 @@
+/* === CSS RESET & GLOBAL STYLES === */
+:root {
+    --bg-color: #0d0f10;
+    --panel-bg: #1a1d1f;
+    --accent-color: #d4edee;
+    --accent-color-transparent: rgba(0, 246, 255, 0.1);
+    --border-color: #33383c;
+    --text-color: #e0e0e0;
+    --text-muted: #838d93;
+    --font-family: 'Space Mono', monospace;
+    --font-weight: 700;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    /* 微妙的掃描線背景 */
+    background-image: repeating-linear-gradient(
+        0deg, 
+        transparent, 
+        transparent 1px, 
+        rgba(255, 255, 255, 0.03) 1px, 
+        rgba(255, 255, 255, 0.03) 2px
+    );
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+/* === HEADER / SHOWCASE === */
+#showcase { text-align: center; padding: 4rem 2rem; }
+#showcase h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: var(--accent-color);
+    text-shadow: 0 0 5px var(--accent-color-transparent), 0 0 15px var(--accent-color-transparent);
+}
+#showcase p { font-size: 1rem; color: var(--text-muted); margin-top: 0.5rem; }
+
+/* === 靜態展示區塊樣式 === */
+#gallery-showcase {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding-top: 0;
+    padding-bottom: 4rem;
+}
+.gallery-item {
+    border: 1px solid var(--border-color);
+    background: #000;
+    overflow: hidden;
+}
+.gallery-item img {
+    width: 150%;
+    height: 150%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.75s ease;
+}
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+/* === MAIN APP LAYOUT === */
+main#app {
+    /* 為整個應用程式區塊添加內邊距 */
+    /* 上0 右2rem 下4rem 左2rem */
+    padding: 0rem 1rem 4rem 1rem;
+}
+
+#app .app-panel {
+    /* 確保面板本身是居中的，並有最大寬度限制 */
+    max-width: 1600px;
+    margin: 0 auto;
+    
+    /* 調整網格比例為 3:1 */
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.canvas-container {
+    border: 1px solid var(--border-color);
+    min-height: 400px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+#canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+#placeholder-text {
+    color: var(--text-muted);
+}
+
+/* === CONTROLS PANEL === */
+.controls-panel-wrapper { position: relative; padding: 2px; }
+.controls-panel-wrapper::before, .controls-panel-wrapper::after { content: ''; position: absolute; width: 10px; height: 10px; border-style: solid; border-color: var(--accent-color); }
+.controls-panel-wrapper::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+.controls-panel-wrapper::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+.controls-panel { background-color: var(--panel-bg); border: 1px solid var(--border-color); padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; height: 100%; }
+.control-group { display: flex; flex-direction: column; gap: 0.75rem; }
+
+/* === CUSTOM CONTROLS === */
+label { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; }
+
+/* --- Buttons --- */
+input[type="file"] { display: none; }
+.custom-file-upload, button {
+    background: transparent; color: var(--accent-color); border: 1px solid var(--accent-color); padding: 0.8rem 1rem; font-family: var(--font-family); font-weight: 700;
+    font-size: 0.9rem; text-transform: uppercase; text-align: center; cursor: pointer; transition: all 0.2s ease;
+}
+.custom-file-upload:hover, button:hover:not(:disabled) { background-color: var(--accent-color-transparent); box-shadow: 0 0 10px var(--accent-color-transparent); }
+button:disabled { border-color: var(--border-color); color: var(--text-muted); cursor: not-allowed; }
+.secondary-btn { color: var(--text-muted); border-color: var(--border-color); }
+.secondary-btn:hover:not(:disabled) { color: var(--accent-color); border-color: var(--accent-color); }
+.action-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: auto;}
+
+/* --- Sliders --- */
+input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 2px; background: var(--border-color); outline: none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 10px; height: 20px; background: var(--accent-color); cursor: pointer; }
+input[type="range"]::-moz-range-thumb { width: 10px; height: 20px; background: var(--accent-color); cursor: pointer; border: none; }
+input[type="range"]:disabled::-webkit-slider-thumb { background: #555; }
+input[type="range"]:disabled::-moz-range-thumb { background: #555; }
+
+/* --- Select --- */
+.select-wrapper { position: relative; }
+select { -webkit-appearance: none; appearance: none; width: 100%; background-color: var(--panel-bg); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.7rem 1rem; font-size: 0.9rem; cursor: pointer; }
+.select-wrapper::after { content: '▼'; font-size: 0.8rem; color: var(--text-muted); position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); pointer-events: none; }
+
+/* --- Color Pickers --- */
+.color-pickers { display: flex; align-items: center; gap: 0.5rem; }
+input[type="color"] { -webkit-appearance: none; appearance: none; width: 40px; height: 40px; background: none; border: 1px solid var(--border-color); padding: 0; cursor: pointer; }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 4px; }
+input[type="color"]::-webkit-color-swatch { border: none; }
+.color-pickers .arrow { display: block; width: 20px; height: 1px; background: var(--text-muted); }
+
+/* --- Checkbox --- */
+.bloom-group { border-top: 1px solid var(--border-color); padding-top: 1.5rem; }
+.checkbox-label { display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: var(--text-color); text-transform: uppercase; }
+.checkbox-label input[type="checkbox"] { display: none; }
+.custom-checkbox { width: 18px; height: 18px; border: 1px solid var(--border-color); margin-right: 0.75rem; display: flex; justify-content: center; align-items: center; transition: all 0.2s; }
+.custom-checkbox::after { content: ''; display: block; width: 10px; height: 10px; background-color: var(--accent-color); opacity: 0; transition: opacity 0.2s; box-shadow: 0 0 5px var(--accent-color); }
+.checkbox-label input[type="checkbox"]:checked + .custom-checkbox { border-color: var(--accent-color); }
+.checkbox-label input[type="checkbox"]:checked + .custom-checkbox::after { opacity: 1; }
+
+/* === LOADING SPINNER & SHOWCASE BG === */
+.loading-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(13, 15, 16, 0.7); display: flex; justify-content: center; align-items: center; opacity: 0; visibility: hidden; transition: all 0.2s; z-index: 10; }
+.canvas-container.processing .loading-overlay { opacity: 1; visibility: visible; }
+.spinner { width: 50px; height: 50px; border: 3px solid var(--border-color); border-top-color: var(--accent-color); border-radius: 50%; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.showcase-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-size: cover; background-position: center; animation: showcase-fade 12s infinite ease-in-out; }
+/* 新增偽元素來創建黑色疊加層 */
+.showcase-background::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); z-index: 1; }
+@keyframes showcase-fade { /* 4 images, 25% per image */
+    0%, 23%, 100% { background-image: url('showcase-images/showcase-1.png'); }
+    25%, 48% { background-image: url('showcase-images/showcase-2.png'); }
+    50%, 73% { background-image: url('showcase-images/showcase-3.png'); }
+    75%, 98% { background-image: url('showcase-images/showcase-4.png'); }
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 900px) {
+    #app .app-panel { grid-template-columns: 1fr; }
+    #gallery-showcase { grid-template-columns: 1fr 1fr; } /* 中等螢幕顯示兩列 */
+}
+@media (max-width: 500px) {
+    #gallery-showcase { grid-template-columns: 1fr; } /* 小螢幕顯示一列 */
+}

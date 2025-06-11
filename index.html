@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITHERTONE - Terminal Interface</title>
+    
+    <!-- [修改] 引入新的等寬字體 "Space Mono" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- [修改] 標題區塊將採用新的極簡風格 -->
+    <header id="showcase">
+        <div class="container">
+            <h1>DITHER_TONE.EXE</h1>
+            <p>// REAL-TIME DITHERING & GLOW FILTER TOOLKIT //</p>
+        </div>
+    </header>
+
+     <!-- [*** 新增的靜態圖片展示區 ***] -->
+     <section id="gallery-showcase" class="container">
+        <div class="gallery-item"><img src="showcase-images/showcase-1.png" alt="Effect Showcase 1"></div>
+        <div class="gallery-item"><img src="showcase-images/showcase-2.png" alt="Effect Showcase 2"></div>
+        <div class="gallery-item"><img src="showcase-images/showcase-3.png" alt="Effect Showcase 3"></div>
+        <div class="gallery-item"><img src="showcase-images/showcase-4.png" alt="Effect Showcase 4"></div>
+    </section>
+
+    <main id="app">
+        <div class="app-panel">
+            <div class="canvas-container" id="canvas-wrapper">
+                <canvas id="canvas"></canvas>
+                <p id="placeholder-text">> Waiting Image Upload...</p>
+                <div class="loading-overlay"><div class="spinner"></div></div>
+            </div>
+
+            <div class="controls-panel-wrapper"> <!-- 新增 wrapper 以便添加裝飾性邊框 -->
+                <div class="controls-panel">
+                    <div class="control-group file-upload-group">
+                        <label for="image-upload" class="custom-file-upload">> LOAD IMAGE</label>
+                        <input type="file" id="image-upload" accept="image/*">
+                    </div>
+                    <div class="control-group">
+                        <label for="dither-style">DITHER ALGORITHM</label>
+                        <div class="select-wrapper">
+                            <select id="dither-style">
+                                <option value="bayer">BAYER (CLASSIC)</option>
+                                <option value="crosshatch">CROSSHATCH</option>
+                                <option value="halftone">HALFTONE</option>
+                                <option value="contour">CONTOUR</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="dither-strength">PATTERN STRENGTH [<span id="strength-value">1.0</span>]</label>
+                        <input type="range" id="dither-strength" min="0" max="4" value="1" step="0.1">
+                    </div>
+                    <div class="control-group">
+                        <label for="color-levels">COLOR LEVELS [<span id="levels-value">4</span>]</label>
+                        <input type="range" id="color-levels" min="2" max="10" value="4">
+                    </div>
+                    <div class="control-group bloom-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="bloom-toggle">
+                            <span class="custom-checkbox"></span>
+                            ENABLE BLOOM FX
+                        </label>
+                        <input type="range" id="bloom-intensity" min="0" max="20" value="5" step="1" disabled>
+                    </div>
+                    <div class="control-group color-group">
+                        <label>GRADIENT MAP</label>
+                        <div class="color-pickers">
+                            <input type="color" id="color-start" value="#000000">
+                            <span class="arrow"></span>
+                            <input type="color" id="color-end" value="#c0c0c0">
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="toggle-view-btn" class="secondary-btn" disabled>VIEW ORIGINAL</button>
+                        <button id="download-btn" disabled>EXPORT IMAGE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 首頁的背景輪播圖片現在由 CSS background-image 控制，無需 JS 處理 -->
+    <div class="showcase-background"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
